@@ -6,7 +6,7 @@ from django.db.models import F
 from django.db.models.functions import TruncHour
 from collections import defaultdict
 import json
-
+from datetime import datetime
 
 def index(request):
     cities = City.objects.all()
@@ -22,10 +22,8 @@ def index(request):
         
         # Fill the temperature data dictionary for the current city
         for data_point in weather_data_group:
-            if data_point['hour']== None:
-               hour = data_point['hour']
-            else:
-               hour = data_point['hour'].strftime('%H:%M')  # Format the hour as 'HH:MM'
+            
+            hour = data_point['hour'].strftime('%H:%M')  # Format the hour as 'HH:MM'
             temperature = float(data_point['temperature']) 
             city_temperature_data[hour] = temperature
         
@@ -43,7 +41,8 @@ def add_city(request):
         API_respone = requests.get(API_url)
         data = API_respone.json()
         temperature = data['main']['temp']
-        WeatherData.objects.create(city=city_data, temperature=temperature)
+        timestamp = datetime.now()
+        WeatherData.objects.create(city=city_data, temperature=temperature, timestamp=timestamp)
     return redirect('index')
 
 def get_graph_data(request, city_name):

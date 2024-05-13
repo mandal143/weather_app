@@ -83,11 +83,13 @@
         });
     }
 
-    // Retrieve temperature data from template context
-    var temperatureDataString = '{{ temperature_data_json|escapejs }}';
-    console.log(temperatureDataString);
+  // Retrieve temperature data from template context
+    var temperatureDataString = '{{ temperature_data|escapejs }}'
+    console.log("temperatureDataString:12" ,temperatureDataString)
+
+
     var temperatureData = JSON.parse(temperatureDataString);
-    console.log(temperatureData);
+    console.log("temperatureData12:", temperatureData);
 
     // Extract cities and labels
     var cities = Object.keys(temperatureData);

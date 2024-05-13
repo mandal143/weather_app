@@ -138,3 +138,6 @@ STATIC_URL = '/static/'
 
 # weather_project/settings.py
 
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
